@@ -1521,7 +1521,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWordIndex((prev) => (prev + 1) % words.length);
-    }, 2500);
+    }, 1900);
     return () => clearInterval(interval);
   }, []);
 
@@ -1529,7 +1529,7 @@ export default function Home() {
   useEffect(() => {
     const lenis = new Lenis({
       smooth: true,
-      lerp: 0.06,
+      lerp: 0.05,
     });
 
     function raf(time) {

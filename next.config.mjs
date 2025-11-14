@@ -4,6 +4,11 @@ const nextConfig = {
     domains: ["lh3.googleusercontent.com"],
   },
 
+  productionBrowserSourceMaps: false, // ❌ Prevents access to .map files
+
+
+
+
   webpack: (config) => {
     // Ignore Node.js core modules (not available in browser)
     config.resolve.fallback = {
@@ -14,6 +19,7 @@ const nextConfig = {
     };
     return config;
   },
+  
 };
 
 export default nextConfig;

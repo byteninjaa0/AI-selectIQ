@@ -67,7 +67,36 @@ export default function SorryPage() {
         >
           help@selectiq.in
         </a>
+
+        <p className="text-center text-gray-600 text-xs mt-12 -mb-8">
+        © {new Date().getFullYear()} SelectIQ - Subsidary of{" "}
+        <a 
+          href="https://suyashabes.netlify.app" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="underline hover:text-indigo-400 transition"
+        >
+          YSL Media
+        </a>. All rights reserved 
+        <br className="mt-1.5"/>
+         Made with ❤ in India
       </p>
+      </p>
+      
+        <p className="text-center text-gray-300 text-xs mt-12">
+        © {new Date().getFullYear()} SelectIQ - Subsidary of{" "}
+        <a 
+          href="https://suyashabes.netlify.app" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="underline hover:text-indigo-400 transition"
+        >
+          YSL Media
+        </a>. All rights reserved 
+        <br className="mt-1.5"/>
+        <br/> Made with ❤ in India
+      </p>
+      
     </div>
   );
 }

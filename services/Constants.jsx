@@ -122,7 +122,7 @@ Inputs:
 
 Task:
 1. Analyze the job description and pick the most relevant skills/topics.
-2. Generate interview questions appropriate to the duration and the {{type}} style.
+2. Generate interview questions appropriate to the {{duration}} and the {{type}} style.
 3. STRICTLY return a **valid JSON object only**. No markdown, no explanation, no prose, no extra text.
 
 Return EXACTLY this JSON shape (do not add extra fields or text):
@@ -132,3 +132,43 @@ Return EXACTLY this JSON shape (do not add extra fields or text):
   ]
 }
 `;
+
+
+
+
+
+//========= for Feedback =========
+
+
+
+
+
+
+
+
+
+
+export const FEEDBACK_PROMT=`{{conversation}}
+
+Depends on this Interview Conversation between assitant and user, Give me feedback for user interview as a fresher. Give me rating out of 10 for technical Skills, Communication, Problem Solving, Experince and give me rating out of 10 for Individual technical skill or Tech Stack. Also give me summery in 3-4 lines about the interview and one line to let me know whether is recommanded for hire or not with msg. Give me response in JSON format
+{
+
+    feedback:{
+        rating:{
+            techicalSkills:5,
+            communication:6,
+            problemSolving:4,
+            experince:7 
+
+        },
+        summery:<in 3 Line>,
+        Recommendation:'',
+        RecommendationMsg:''
+
+
+
+      }
+
+  }
+
+`

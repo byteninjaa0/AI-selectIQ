@@ -149,7 +149,40 @@ export default function ThankYouPage() {
           Submit Feedback
         </button>
       </div>
+            {/* Footer */}
+
+      <footer className="bg-midnightLighter text-gray-400 text-center py-4">
+
+        <p className="text-center text-gray-900 text-xs mt-12">
+        © {new Date().getFullYear()} SelectIQ - Subsidary of{" "}
+        <a 
+          href="https://suyashabes.netlify.app" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="underline hover:text-indigo-700 transition"
+        >
+          YSL Media
+        </a>. All rights reserved 
+        <br className="-pt-1"/>
+         Made with ❤ in India
+      </p>
+
+      </footer>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
