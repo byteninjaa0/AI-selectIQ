@@ -47,7 +47,7 @@ function DashboardLayout({ children }) {
 
   return (
     <DashboardProvider>
-      <div className="p-10">{children}</div>
+      <div className="p-1">{children}</div>
     </DashboardProvider>
   );
 }

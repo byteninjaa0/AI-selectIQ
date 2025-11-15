@@ -1119,7 +1119,7 @@
 //         <div className="text-center mb-12">
 //         <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2></div>
 //         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-          
+
 //           {[
 //             {
 //               title: "AI Powered",
@@ -1514,6 +1514,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const cursorRef = useRef(null);
+  const lenisRef = useRef(null);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const words = ["Simple", "Effective", "Quicker"];
 
@@ -1521,7 +1522,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWordIndex((prev) => (prev + 1) % words.length);
-    }, 1900);
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -1531,7 +1532,7 @@ export default function Home() {
       smooth: true,
       lerp: 0.05,
     });
-
+    lenisRef.current = lenis;
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -1561,8 +1562,36 @@ export default function Home() {
     return () => {
       window.removeEventListener("mousemove", moveCursor);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
+  const handleNavClick = (e, hash) => {
+    // allow open-in-new-tab + modifier keys
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+    e.preventDefault();
+
+    // update URL without jumping
+    if (history && history.pushState) {
+      history.pushState(null, "", `${window.location.pathname}${hash}`);
+    }
+
+    const el = document.querySelector(hash);
+    if (!el) return;
+
+    const headerOffset = 72; // adjust to match your header height
+    const top = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+
+    const lenis = lenisRef.current;
+    if (lenis && typeof lenis.scrollTo === "function") {
+      // duration in seconds (adjust to taste)
+      lenis.scrollTo(top, { duration: 1.0 });
+    } else {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      // fallback offset: if header covers it, you can do window.scrollBy(0, -headerOffset)
+    }
+  };
+
 
   return (
     <div className="relative bg-gradient-to-b from-indigo-50 to-white dark:from-gray-800 dark:to-gray-900 text-gray-900 dark:text-gray-100">
@@ -1579,12 +1608,69 @@ export default function Home() {
             <Image src="/logo.png" alt="logo" width={135} height={50} />
           </Link>
           <nav className="hidden md:flex gap-6 text-sm font-medium">
-            <Link href="#features">Features</Link>
-            <Link href="#process">Process</Link>
-            <Link href="#benefits">Benefits</Link>
-            <Link href="#pricing">Pricing</Link>
-            <Link href="#testimonials">Testimonials</Link>
-            <Link href="#partners">Partners</Link>
+            <Link
+              href="#features"
+              scroll={false}
+              onClick={(e) => handleNavClick(e, "#features")}
+              className="group relative text-black transition-transform duration-300"
+            >
+              <span className="relative z-10">Features</span>
+              <span className="absolute left-0 bottom-0 h-[2px] w-full scale-x-0 origin-center bg-black transition-transform duration-300 group-hover:scale-x-100"></span>
+            </Link>
+
+
+            <nav className="hidden md:flex gap-6 text-sm font-medium">
+              <Link
+                href="#process"
+                scroll={false}
+                onClick={(e) => handleNavClick(e, "#process")}
+                className="group relative text-black transition-transform duration-300"
+              >
+                <span className="relative z-10">Process</span>
+                <span className="absolute left-0 bottom-0 h-[2px] w-full scale-x-0 origin-center bg-black transition-transform duration-300 group-hover:scale-x-100"></span>
+              </Link>
+
+              <Link
+                href="#benefits"
+                scroll={false}
+                onClick={(e) => handleNavClick(e, "#benefits")}
+                className="group relative text-black transition-transform duration-300"
+              >
+                <span className="relative z-10">Benefits</span>
+                <span className="absolute left-0 bottom-0 h-[2px] w-full scale-x-0 origin-center bg-black transition-transform duration-300 group-hover:scale-x-100"></span>
+              </Link>
+
+              <Link
+                href="#pricing"
+                scroll={false}
+                onClick={(e) => handleNavClick(e, "#pricing")}
+                className="group relative text-black transition-transform duration-300"
+              >
+                <span className="relative z-10">Pricing</span>
+                <span className="absolute left-0 bottom-0 h-[2px] w-full scale-x-0 origin-center bg-black transition-transform duration-300 group-hover:scale-x-100"></span>
+              </Link>
+
+              <Link
+                href="#testimonials"
+                scroll={false}
+                onClick={(e) => handleNavClick(e, "#testimonials")}
+                className="group relative text-black transition-transform duration-300"
+              >
+                <span className="relative z-10">Testimonials</span>
+                <span className="absolute left-0 bottom-0 h-[2px] w-full scale-x-0 origin-center bg-black transition-transform duration-300 group-hover:scale-x-100"></span>
+              </Link>
+
+              <Link
+                href="#partners"
+                scroll={false}
+                onClick={(e) => handleNavClick(e, "#partners")}
+                className="group relative text-black transition-transform duration-300"
+              >
+                <span className="relative z-10">Partners</span>
+                <span className="absolute left-0 bottom-0 h-[2px] w-full scale-x-0 origin-center bg-black transition-transform duration-300 group-hover:scale-x-100"></span>
+              </Link>
+            </nav>
+
           </nav>
           <div className="flex items-center gap-4">
             <ThemeToggle />
@@ -1705,9 +1791,8 @@ export default function Home() {
               >
                 {/* Branch Connector */}
                 <div
-                  className={`absolute top-8 w-12 h-1 bg-indigo-400 ${
-                    i % 2 === 0 ? "right-1/2" : "left-1/2"
-                  }`}
+                  className={`absolute top-8 w-12 h-1 bg-indigo-400 ${i % 2 === 0 ? "right-1/2" : "left-1/2"
+                    }`}
                 ></div>
 
                 {/* Node (dot) */}
@@ -1715,9 +1800,8 @@ export default function Home() {
 
                 {/* Step Card */}
                 <div
-                  className={`w-full md:w-5/12 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 parallax-card ${
-                    i % 2 === 0 ? "ml-16" : "mr-16 text-right"
-                  }`}
+                  className={`w-full md:w-5/12 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 parallax-card ${i % 2 === 0 ? "ml-16" : "mr-16 text-right"
+                    }`}
                 >
                   <div className="flex items-center gap-3 mb-2 justify-center md:justify-start">
                     <span className="text-2xl">{step.icon}</span>
@@ -1735,7 +1819,7 @@ export default function Home() {
       {/* Benefits */}
       <section id="benefits" className="py-16 px-6 bg-white dark:bg-gray-950">
         <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-14 pb-8">Benifits</h2></div>
+          <h2 className="text-3xl font-bold mb-14 pb-8">Benifits</h2></div>
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-7 text-center">
           {[
             { title: "AI Powered", desc: "Smarter interview generation.", icon: <Brain /> },
@@ -1755,12 +1839,12 @@ export default function Home() {
       </section>
 
       {/* ✅ Add Pricing, Testimonials Carousel, Partners Carousel, Footer same as before but wrapped in motion.div with repeat loop */}
-       {/* Pricing */}
-       <section id="pricing" className="py-10 md:py-12 px-6 bg-gray-50 dark:bg-gray-900">
-         <div className="max-w-6xl mx-auto text-center">
-           <h2 className="text-3xl font-bold mb-12">Pricing Plans</h2>
-           <div className="grid md:grid-cols-3 gap-8">
-             {[
+      {/* Pricing */}
+      <section id="pricing" className="py-10 md:py-12 px-6 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-12">Pricing Plans</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
               {
                 title: "Starter",
                 price: "₹0",
@@ -1808,8 +1892,8 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <Button className="mt-6 w-full bg-primary text-white hover:bg-primary/90 dark:bg-indigo-900"><Link href="https://wa.link/9tu6s1" 
-                  target="_blank" 
+                <Button className="mt-6 w-full bg-primary text-white hover:bg-primary/90 dark:bg-indigo-900"><Link href="https://wa.link/9tu6s1"
+                  target="_blank"
                   rel="noopener noreferrer">
                   Get Started </Link>
                 </Button>
@@ -1993,27 +2077,27 @@ export default function Home() {
           <div>
             <h4 className="font-semibold text-white mb-3">Contact</h4>
             <p>Email: support@selectiq.com</p>
-            <Link href="https://wa.link/9tu6s1" 
-              target="_blank" 
+            <Link href="https://wa.link/9tu6s1"
+              target="_blank"
               rel="noopener noreferrer"
-              ><p className="mt-1.5">Phone: +91 770-400-4470</p>
+            ><p className="mt-1.5">Phone: +91 770-400-4470</p>
             </Link>
-            
+
           </div>
         </div>
         <p className="text-center text-gray-300 text-xs mt-12">
-        © {new Date().getFullYear()} SelectIQ - Subsidary of{" "}
-        <a 
-          href="https://suyashabes.netlify.app" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="underline hover:text-indigo-400 transition"
-        >
-          YSL Media
-        </a>. All rights reserved 
-        <br className="mt-1.5"/>
-        <br/> Made with ❤ in India
-      </p>
+          © {new Date().getFullYear()} SelectIQ - Subsidary of{" "}
+          <a
+            href="https://suyashabes.netlify.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-indigo-400 transition"
+          >
+            YSL Media
+          </a>. All rights reserved
+          <br className="mt-1.5" />
+          <br /> Made with ❤ in India
+        </p>
 
       </footer>
     </div>

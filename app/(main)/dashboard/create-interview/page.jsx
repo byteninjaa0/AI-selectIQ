@@ -85,7 +85,7 @@ const onGoToNext = () => {
 
 
   return (
-    <div className='mt-10 px-10 md:px-24 lg:px-44 xl:px-56 '>
+    <div className='mt-10 md:px-24 lg:px-44 xl:px-56 '>
 
         <div className='flex gap-5 items-center '>
            <ArrowLeft onClick={()=>router.back()} className='cursor-pointer' /> 

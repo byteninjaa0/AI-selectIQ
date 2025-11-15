@@ -5,7 +5,7 @@ import React from 'react'
 function CreateOptions() {
   return (
     <div className='grid grid-cols-2 gap-5'>
-        <Link href={'/dashboard/create-interview'} className='bg-indigo-50 border-indigo-200 rounded-lg p-5 flex flex-col gap-2 cursor-pointer '
+        <Link href={'/dashboard/create-interview'} className='bg-gray-500 border-indigo-200 rounded-lg p-5 flex flex-col gap-2 cursor-pointer '
         >
             <Video className='p-3 text-primary bg-indigo-50 rounded-lg h-12 w-12 ' />
 
