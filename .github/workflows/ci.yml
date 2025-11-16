@@ -26,10 +26,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      # If you don't have tests yet, you can comment this out:
-      # - name: Run tests
-      #   run: npm test
+        
+      - name: Run tests
+        run: npm test
 
       - name: Build
         run: npm run build
